@@ -1,11 +1,20 @@
-import Image from "next/image";
-
-const mockupImage =
-  "https://lh3.googleusercontent.com/aida-public/AB6AXuDW-elwNYlXM7QFiiB-wmIkSzsDrZ5_ViU5hNVvFs0pj8bxi3T0_9VMFFTXZoJr3MNxb11iObIPJ5_AXSmjJy_Uw0TKkefghF2LasjYns34bMWbLYZEs4d1J1TSBh117SlsU178GmhEG2ATKusRoA7y__BhjEUvEpSWw-58ZITY1Lj-D8PmkNWL78Bt0yq13KHlFBe9150plJ6W8YwSmdw7uOfZqxJbKxdnAlBEUDt_A45qgfqbzQBfroVW2pL7oRt_RVEPyFOQcT56";
+const interestStats = [
+  { label: "Total interesados", value: "1,248", tone: "total" },
+  { label: "Conductores", value: "812", tone: "driver" },
+  { label: "Anfitriones", value: "436", tone: "tertiary" },
+];
 
 export function Hero() {
   return (
     <header id="inicio" className="relative overflow-hidden pt-32 pb-20 md:pt-44 md:pb-28">
+      <div
+        className="absolute inset-0 -z-20 bg-cover bg-center"
+        style={{
+          backgroundImage:
+            "url('https://images.unsplash.com/photo-1519501025264-65ba15a82390?auto=format&fit=crop&w=2200&q=80')",
+        }}
+      />
+      <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_20%_30%,rgba(17,92,175,0.25),transparent_45%),linear-gradient(120deg,rgba(4,14,34,0.94)_20%,rgba(4,14,34,0.72)_55%,rgba(4,14,34,0.86)_100%)]" />
       <div className="pointer-events-none absolute inset-0 -z-10">
         <div className="absolute top-20 left-20 h-72 w-72 rounded-full bg-[var(--primary)]/10 blur-[100px]" />
         <div className="absolute right-12 bottom-6 h-80 w-80 rounded-full bg-[var(--tertiary)]/10 blur-[120px]" />
@@ -35,25 +44,44 @@ export function Hero() {
           </div>
         </div>
 
-        <div className="relative mx-auto w-full max-w-sm">
-          <div className="absolute -inset-1 rounded-[3rem] bg-gradient-to-r from-[var(--primary)] to-[var(--tertiary)] opacity-20 blur" />
-          <div className="ambient-shadow relative overflow-hidden rounded-[2.25rem] bg-[var(--surface-lowest)] p-3">
-            <div className="relative overflow-hidden rounded-[1.5rem]">
-              <Image
-                src={mockupImage}
-                alt="Vista de app MiParking mostrando mapa y pines"
-                width={900}
-                height={1600}
-                className="h-auto w-full"
-                priority
-              />
-              <div className="absolute right-4 bottom-4 left-4 rounded-xl bg-[var(--surface-highest)]/90 p-4 backdrop-blur">
-                <div className="mb-2 flex items-center justify-between text-xs font-bold uppercase tracking-[0.08em]">
-                  <span className="text-[var(--primary)]">Cerca de ti</span>
-                  <span className="text-[var(--tertiary)]">Disponible</span>
+        <div className="relative mx-auto w-full max-w-md">
+          <div className="ambient-shadow relative rounded-[2rem] bg-[rgba(9,18,34,0.22)] p-6 backdrop-blur-xl md:p-7">
+            <div className="mb-6 flex items-center justify-between">
+              <p className="text-base leading-tight font-extrabold uppercase tracking-[0.08em] text-white md:text-lg">
+                Interesados hasta hoy
+              </p>
+              <span className="rounded-full bg-white/12 px-3 py-1 text-[11px] font-semibold text-white">
+                En tiempo real
+              </span>
+            </div>
+            <div className="grid gap-3 sm:grid-cols-3 sm:gap-2">
+              {interestStats.map((stat) => (
+                <div
+                  key={stat.label}
+                  className="rounded-2xl bg-white/8 p-4 text-center backdrop-blur-sm sm:text-left"
+                >
+                  <p
+                    className={`text-3xl font-extrabold tracking-tight ${
+                      stat.tone === "driver"
+                        ? "text-[#8b7dff]"
+                        : stat.tone === "tertiary"
+                          ? "text-[var(--tertiary)]"
+                          : "text-white"
+                    }`}
+                  >
+                    {stat.value}
+                  </p>
+                  <p className="mt-1 text-sm text-white/80">{stat.label}</p>
                 </div>
-                <div className="h-2 rounded-full bg-[var(--surface-low)]" />
-                <div className="mt-2 h-2 w-2/3 rounded-full bg-[var(--surface-low)]" />
+              ))}
+            </div>
+            <div className="mt-6 rounded-xl bg-white/8 p-4 backdrop-blur-sm">
+              <div className="mb-2 flex items-center justify-between text-xs font-bold uppercase tracking-[0.08em]">
+                <span className="text-[var(--primary)]">Conductores 65%</span>
+                <span className="text-[var(--tertiary)]">Anfitriones 35%</span>
+              </div>
+              <div className="h-2 overflow-hidden rounded-full bg-white/50">
+                <div className="h-full w-[65%] bg-gradient-to-r from-[var(--primary)] to-[var(--tertiary)]" />
               </div>
             </div>
           </div>

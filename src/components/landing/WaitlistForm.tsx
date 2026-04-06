@@ -1,4 +1,25 @@
 export function WaitlistForm() {
+  const roleOptions = [
+    {
+      label: "Anfitrion",
+      value: "host",
+      icon: "home",
+      description: "Publica tu espacio",
+    },
+    {
+      label: "Conductor",
+      value: "driver",
+      icon: "directions_car",
+      description: "Encuentra cupos rapidos",
+    },
+    {
+      label: "Ambos",
+      value: "both",
+      icon: "swap_horiz",
+      description: "Arrienda y estaciona",
+    },
+  ];
+
   return (
     <section id="waitlist" className="py-24">
       <div className="section-wrap">
@@ -39,25 +60,78 @@ export function WaitlistForm() {
               <legend className="mb-3 text-xs font-semibold uppercase tracking-[0.08em] text-[var(--on-surface-variant)]">
                 Como usaras MiParking?
               </legend>
-              <div className="flex flex-wrap gap-3">
-                {[
-                  "Anfitrion",
-                  "Conductor",
-                  "Ambos",
-                ].map((option) => (
-                  <label
-                    key={option}
-                    className="soft-outline flex cursor-pointer items-center gap-2 rounded-xl bg-[var(--surface-container)] px-4 py-3"
-                  >
-                    <input type="radio" name="role" value={option} className="accent-[var(--primary)]" />
-                    <span>{option}</span>
+              <div className="grid gap-3 md:grid-cols-3">
+                {roleOptions.map((option) => (
+                  <label key={option.value} className="group relative cursor-pointer">
+                    <input
+                      type="radio"
+                      name="role"
+                      value={option.value}
+                      className="peer sr-only"
+                    />
+                    <div className="relative min-h-28 overflow-hidden rounded-2xl">
+                      <svg
+                        aria-hidden="true"
+                        className="pointer-events-none absolute inset-0 z-[1] h-full w-full opacity-0 transition-opacity duration-300 group-hover:opacity-100 peer-focus-visible:opacity-100 peer-checked:opacity-100"
+                      >
+                        <defs>
+                          <linearGradient id={`${option.value}-stroke-a`} x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stopColor="var(--primary)" />
+                            <stop offset="100%" stopColor="var(--tertiary)" />
+                          </linearGradient>
+                          <linearGradient id={`${option.value}-stroke-b`} x1="100%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" stopColor="var(--tertiary)" />
+                            <stop offset="100%" stopColor="var(--primary-container)" />
+                          </linearGradient>
+                        </defs>
+                        <rect
+                          className="role-card-border"
+                          pathLength={100}
+                          x="1"
+                          y="1"
+                          rx="15"
+                          ry="15"
+                          style={{
+                            width: "calc(100% - 2px)",
+                            height: "calc(100% - 2px)",
+                            stroke: `url(#${option.value}-stroke-a)`,
+                          }}
+                        />
+                        <rect
+                          className="role-card-border role-card-border--offset"
+                          pathLength={100}
+                          x="1"
+                          y="1"
+                          rx="15"
+                          ry="15"
+                          style={{
+                            width: "calc(100% - 2px)",
+                            height: "calc(100% - 2px)",
+                            stroke: `url(#${option.value}-stroke-b)`,
+                          }}
+                        />
+                      </svg>
+                      <div className="absolute inset-px rounded-[15px] bg-[var(--surface-container)]" />
+                      <div className="relative z-10 flex min-h-28 items-center gap-3 px-4 py-4 transition-transform duration-200 group-hover:-translate-y-0.5">
+                        <div className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-[var(--surface-highest)] text-[var(--primary)]">
+                          <span className="material-symbols-outlined text-[22px] leading-none">{option.icon}</span>
+                        </div>
+                        <div className="min-w-0 flex-1 text-left">
+                          <p className="text-sm font-semibold tracking-wide text-white">{option.label}</p>
+                          <p className="mt-1 text-xs text-[var(--on-surface-variant)]">{option.description}</p>
+                        </div>
+                      </div>
+                    </div>
+                    <span className="pointer-events-none absolute top-3 right-3 inline-flex h-6 w-6 scale-75 items-center justify-center rounded-full bg-[var(--primary)] text-[var(--surface)] opacity-0 transition-all duration-200 peer-checked:scale-100 peer-checked:opacity-100">
+                      <span className="material-symbols-outlined text-[16px] leading-none">check</span>
+                    </span>
                   </label>
                 ))}
               </div>
             </fieldset>
             <button
               type="submit"
-              className="gradient-btn w-full rounded-xl px-6 py-4 text-lg font-bold transition hover:brightness-110"
+              className="gradient-btn w-full rounded-xl px-6 py-4 text-lg font-bold transition hover:cursor-pointer hover:brightness-110"
             >
               Unirme a la lista de espera
             </button>

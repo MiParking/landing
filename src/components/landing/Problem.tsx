@@ -1,6 +1,6 @@
 export function Problem() {
   return (
-    <section className="bg-[var(--surface-low)] py-20">
+    <section id="beneficios" className="bg-[var(--surface-low)] py-20">
       <div className="section-wrap text-center">
         <h2 className="mb-6 text-3xl font-bold tracking-tight text-white md:text-5xl">
           Encontrar estacionamiento no deberia ser dificil

@@ -2,7 +2,7 @@ import { trustItems } from "@/content/landing";
 
 export function Trust() {
   return (
-    <section className="section-wrap py-20">
+    <section id="confianza" className="section-wrap py-20">
       <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
         {trustItems.map((item) => (
           <article key={item.title} className="rounded-2xl bg-[var(--surface-container)] p-6 text-center">
