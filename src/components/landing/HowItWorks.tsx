@@ -43,7 +43,7 @@ function StepColumn({
 
 export function HowItWorks() {
   return (
-    <section id="beneficios" className="section-wrap py-24">
+    <section id="como-funciona" className="section-wrap py-24">
       <div className="grid gap-8 lg:grid-cols-2">
         <StepColumn id="conductores" title="Para Conductores" accent="var(--primary)" steps={driverSteps} />
         <StepColumn id="anfitriones" title="Para Anfitriones" accent="var(--tertiary)" steps={hostSteps} />
