@@ -16,9 +16,9 @@ export default function Home() {
       <main>
         <Hero />
         <Problem />
-        <UseCases />
-        <HowItWorks />
         <Showcase />
+        <HowItWorks />
+        <UseCases />
         <Trust />
         <WaitlistForm />
         <FinalCta />
