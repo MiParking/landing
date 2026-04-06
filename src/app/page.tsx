@@ -6,6 +6,7 @@ import { Navbar } from "@/components/landing/Navbar";
 import { Problem } from "@/components/landing/Problem";
 import { Showcase } from "@/components/landing/Showcase";
 import { Trust } from "@/components/landing/Trust";
+import { UseCases } from "@/components/landing/UseCases";
 import { WaitlistForm } from "@/components/landing/WaitlistForm";
 
 export default function Home() {
@@ -15,6 +16,7 @@ export default function Home() {
       <main>
         <Hero />
         <Problem />
+        <UseCases />
         <HowItWorks />
         <Showcase />
         <Trust />
