@@ -1,6 +1,7 @@
 @import "tailwindcss";
 
 :root {
+  --nav-offset: 5.5rem;
   --surface: #0c1321;
   --surface-low: #151b2a;
   --surface-container: #19202e;
@@ -25,6 +26,23 @@
 
 * {
   box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: var(--nav-offset);
+}
+
+section[id],
+header[id],
+article[id] {
+  scroll-margin-top: var(--nav-offset);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 }
 
 body {

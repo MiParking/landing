@@ -1,7 +1,7 @@
 export const navLinks = [
   { href: "#inicio", label: "Inicio" },
   { href: "#como-funciona", label: "Como funciona" },
-  { href: "#confianza", label: "Confianza" },
+  { href: "#confianza", label: "Seguridad" },
 ];
 
 export const driverSteps = [
