@@ -54,18 +54,22 @@ export const showcaseImages = [
 
 export const trustItems = [
   {
+    icon: "verified_user",
     title: "Verificado",
     description: "Perfiles y espacios validados.",
   },
   {
+    icon: "payments",
     title: "Pagos Seguros",
     description: "Transacciones encriptadas.",
   },
   {
+    icon: "history",
     title: "Historial",
     description: "Control total de tus movimientos.",
   },
   {
+    icon: "support_agent",
     title: "Soporte 24/7",
     description: "Estamos aqui para ayudarte.",
   },
