@@ -84,6 +84,29 @@ a {
   border: 1px solid rgba(67, 70, 85, 0.15);
 }
 
+.role-card-border {
+  fill: none;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-dasharray: 14 86;
+  animation: role-card-border-travel 5s linear infinite;
+  will-change: stroke-dashoffset;
+}
+
+.role-card-border--offset {
+  animation-delay: -1.7s;
+}
+
+@keyframes role-card-border-travel {
+  from {
+    stroke-dashoffset: 0;
+  }
+
+  to {
+    stroke-dashoffset: -100;
+  }
+}
+
 .material-symbols-outlined {
   font-family: "Material Symbols Outlined", sans-serif;
   font-weight: 400;

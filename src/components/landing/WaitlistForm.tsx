@@ -70,9 +70,47 @@ export function WaitlistForm() {
                       className="peer sr-only"
                     />
                     <div className="relative min-h-28 overflow-hidden rounded-2xl">
-                      <div className="pointer-events-none absolute inset-0 rounded-2xl opacity-0 transition-opacity duration-300 group-hover:opacity-100 peer-focus-visible:opacity-100 peer-checked:opacity-100">
-                        <div className="h-full w-full animate-[spin_3.4s_linear_infinite] bg-[conic-gradient(from_120deg,var(--primary),var(--tertiary),var(--primary-container),var(--primary))]" />
-                      </div>
+                      <svg
+                        aria-hidden="true"
+                        className="pointer-events-none absolute inset-0 z-[1] h-full w-full opacity-0 transition-opacity duration-300 group-hover:opacity-100 peer-focus-visible:opacity-100 peer-checked:opacity-100"
+                      >
+                        <defs>
+                          <linearGradient id={`${option.value}-stroke-a`} x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stopColor="var(--primary)" />
+                            <stop offset="100%" stopColor="var(--tertiary)" />
+                          </linearGradient>
+                          <linearGradient id={`${option.value}-stroke-b`} x1="100%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" stopColor="var(--tertiary)" />
+                            <stop offset="100%" stopColor="var(--primary-container)" />
+                          </linearGradient>
+                        </defs>
+                        <rect
+                          className="role-card-border"
+                          pathLength={100}
+                          x="1"
+                          y="1"
+                          rx="15"
+                          ry="15"
+                          style={{
+                            width: "calc(100% - 2px)",
+                            height: "calc(100% - 2px)",
+                            stroke: `url(#${option.value}-stroke-a)`,
+                          }}
+                        />
+                        <rect
+                          className="role-card-border role-card-border--offset"
+                          pathLength={100}
+                          x="1"
+                          y="1"
+                          rx="15"
+                          ry="15"
+                          style={{
+                            width: "calc(100% - 2px)",
+                            height: "calc(100% - 2px)",
+                            stroke: `url(#${option.value}-stroke-b)`,
+                          }}
+                        />
+                      </svg>
                       <div className="absolute inset-px rounded-[15px] bg-[var(--surface-container)]" />
                       <div className="relative z-10 flex min-h-28 items-center gap-3 px-4 py-4 transition-transform duration-200 group-hover:-translate-y-0.5">
                         <div className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-[var(--surface-highest)] text-[var(--primary)]">
