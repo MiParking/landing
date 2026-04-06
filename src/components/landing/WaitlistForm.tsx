@@ -37,7 +37,7 @@ export function WaitlistForm() {
             </div>
             <fieldset>
               <legend className="mb-3 text-xs font-semibold uppercase tracking-[0.08em] text-[var(--on-surface-variant)]">
-                Como usaras Estaciona?
+                Como usaras MiParking?
               </legend>
               <div className="flex flex-wrap gap-3">
                 {[

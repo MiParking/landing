@@ -8,7 +8,8 @@ export function FinalCta() {
         </h2>
         <a
           href="#waitlist"
-          className="inline-flex items-center justify-center rounded-full bg-[var(--on-surface)] px-10 py-5 text-xl font-black text-[var(--surface)] transition hover:bg-[var(--primary)]"
+          className="inline-flex items-center justify-center rounded-full bg-[var(--on-surface)] px-10 py-5 text-xl font-black !text-[#0c1321] transition hover:bg-[var(--primary)] hover:!text-[#0c1321]"
+          style={{ color: "#0c1321" }}
         >
           Comenzar ahora
         </a>

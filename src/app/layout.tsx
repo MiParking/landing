@@ -9,7 +9,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Estaciona | Arrienda o encuentra estacionamiento",
+  title: "MiParking | Arrienda o encuentra estacionamiento",
   description:
     "Encuentra o arrienda estacionamientos privados de forma simple y segura.",
 };

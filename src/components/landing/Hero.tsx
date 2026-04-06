@@ -41,7 +41,7 @@ export function Hero() {
             <div className="relative overflow-hidden rounded-[1.5rem]">
               <Image
                 src={mockupImage}
-                alt="Vista de app Estaciona mostrando mapa y pines"
+                alt="Vista de app MiParking mostrando mapa y pines"
                 width={900}
                 height={1600}
                 className="h-auto w-full"
