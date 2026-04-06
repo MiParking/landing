@@ -1,4 +1,25 @@
 export function WaitlistForm() {
+  const roleOptions = [
+    {
+      label: "Anfitrion",
+      value: "host",
+      icon: "home",
+      description: "Publica tu espacio",
+    },
+    {
+      label: "Conductor",
+      value: "driver",
+      icon: "directions_car",
+      description: "Encuentra cupos rapidos",
+    },
+    {
+      label: "Ambos",
+      value: "both",
+      icon: "swap_horiz",
+      description: "Arrienda y estaciona",
+    },
+  ];
+
   return (
     <section id="waitlist" className="py-24">
       <div className="section-wrap">
@@ -39,18 +60,33 @@ export function WaitlistForm() {
               <legend className="mb-3 text-xs font-semibold uppercase tracking-[0.08em] text-[var(--on-surface-variant)]">
                 Como usaras MiParking?
               </legend>
-              <div className="flex flex-wrap gap-3">
-                {[
-                  "Anfitrion",
-                  "Conductor",
-                  "Ambos",
-                ].map((option) => (
-                  <label
-                    key={option}
-                    className="soft-outline flex cursor-pointer items-center gap-2 rounded-xl bg-[var(--surface-container)] px-4 py-3"
-                  >
-                    <input type="radio" name="role" value={option} className="accent-[var(--primary)]" />
-                    <span>{option}</span>
+              <div className="grid gap-3 md:grid-cols-3">
+                {roleOptions.map((option) => (
+                  <label key={option.value} className="group relative cursor-pointer">
+                    <input
+                      type="radio"
+                      name="role"
+                      value={option.value}
+                      className="peer sr-only"
+                    />
+                    <div className="relative min-h-28 overflow-hidden rounded-2xl">
+                      <div className="pointer-events-none absolute inset-0 rounded-2xl opacity-0 transition-opacity duration-300 group-hover:opacity-100 peer-focus-visible:opacity-100 peer-checked:opacity-100">
+                        <div className="h-full w-full animate-[spin_3.4s_linear_infinite] bg-[conic-gradient(from_120deg,var(--primary),var(--tertiary),var(--primary-container),var(--primary))]" />
+                      </div>
+                      <div className="absolute inset-px rounded-[15px] bg-[var(--surface-container)]" />
+                      <div className="relative z-10 flex min-h-28 items-center gap-3 px-4 py-4 transition-transform duration-200 group-hover:-translate-y-0.5">
+                        <div className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-[var(--surface-highest)] text-[var(--primary)]">
+                          <span className="material-symbols-outlined text-[22px] leading-none">{option.icon}</span>
+                        </div>
+                        <div className="min-w-0 flex-1 text-left">
+                          <p className="text-sm font-semibold tracking-wide text-white">{option.label}</p>
+                          <p className="mt-1 text-xs text-[var(--on-surface-variant)]">{option.description}</p>
+                        </div>
+                      </div>
+                    </div>
+                    <span className="pointer-events-none absolute top-3 right-3 inline-flex h-6 w-6 scale-75 items-center justify-center rounded-full bg-[var(--primary)] text-[var(--surface)] opacity-0 transition-all duration-200 peer-checked:scale-100 peer-checked:opacity-100">
+                      <span className="material-symbols-outlined text-[16px] leading-none">check</span>
+                    </span>
                   </label>
                 ))}
               </div>
