@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Estaciona | Arrienda o encuentra estacionamiento</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-bright": "#323949",
+                      "inverse-primary": "#0053db",
+                      "surface": "#0c1321",
+                      "tertiary-fixed": "#6bff8f",
+                      "on-secondary-fixed": "#00174b",
+                      "on-error-container": "#ffdad6",
+                      "tertiary": "#4ae176",
+                      "surface-container-highest": "#2e3544",
+                      "tertiary-fixed-dim": "#4ae176",
+                      "on-surface": "#dce2f6",
+                      "inverse-on-surface": "#2a3040",
+                      "on-tertiary-fixed-variant": "#005321",
+                      "secondary-fixed": "#dbe1ff",
+                      "on-secondary-container": "#a4b6f5",
+                      "outline": "#8d90a0",
+                      "inverse-surface": "#dce2f6",
+                      "surface-dim": "#0c1321",
+                      "surface-container-high": "#232a39",
+                      "on-tertiary": "#003915",
+                      "surface-container": "#19202e",
+                      "secondary-fixed-dim": "#b4c5ff",
+                      "on-primary-container": "#eeefff",
+                      "on-error": "#690005",
+                      "secondary-container": "#33467e",
+                      "surface-container-lowest": "#070e1c",
+                      "on-secondary": "#182d63",
+                      "primary-fixed": "#dbe1ff",
+                      "surface-tint": "#b4c5ff",
+                      "primary-fixed-dim": "#b4c5ff",
+                      "surface-container-low": "#151b2a",
+                      "on-tertiary-container": "#c1ffc5",
+                      "on-secondary-fixed-variant": "#31447b",
+                      "outline-variant": "#434655",
+                      "primary": "#b4c5ff",
+                      "error": "#ffb4ab",
+                      "primary-container": "#2563eb",
+                      "on-primary": "#002a78",
+                      "tertiary-container": "#007e37",
+                      "background": "#0c1321",
+                      "surface-variant": "#2e3544",
+                      "on-surface-variant": "#c3c6d7",
+                      "on-primary-fixed": "#00174b",
+                      "secondary": "#b4c5ff",
+                      "on-primary-fixed-variant": "#003ea8",
+                      "on-tertiary-fixed": "#002109",
+                      "error-container": "#93000a",
+                      "on-background": "#dce2f6"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "fontFamily": {
+                      "headline": ["Inter"],
+                      "body": ["Inter"],
+                      "label": ["Inter"]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; background-color: #0c1321; }
+        .glass-card { background: rgba(50, 57, 73, 0.4); backdrop-filter: blur(12px); }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .text-gradient { background: linear-gradient(to right, #b4c5ff, #4ae176); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    </style>
+</head>
+<body class="text-on-surface selection:bg-primary-container selection:text-on-primary-container">
+<!-- Navbar -->
+<nav class="fixed top-0 w-full z-50 bg-[#0c1321]/60 backdrop-blur-xl shadow-[0px_40px_40px_-15px_rgba(12,19,33,0.08)]">
+<div class="flex justify-between items-center w-full px-8 py-4 max-w-7xl mx-auto">
+<div class="text-2xl font-bold tracking-tighter text-[#b4c5ff]">Estaciona</div>
+<div class="hidden md:flex space-x-8">
+<a class="text-slate-400 font-medium hover:text-white transition-colors font-['Inter'] font-medium text-sm tracking-wide uppercase" href="#beneficios">Beneficios</a>
+<a class="text-slate-400 font-medium hover:text-white transition-colors font-['Inter'] font-medium text-sm tracking-wide uppercase" href="#conductores">Conductores</a>
+<a class="text-slate-400 font-medium hover:text-white transition-colors font-['Inter'] font-medium text-sm tracking-wide uppercase" href="#anfitriones">Anfitriones</a>
+</div>
+<button class="bg-gradient-to-r from-primary to-primary-container text-on-primary px-6 py-2.5 rounded-xl font-bold text-sm transition-transform scale-95 active:opacity-80">
+                Unirse a la espera
+            </button>
+</div>
+</nav>
+<!-- Hero Section -->
+<header class="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden">
+<div class="absolute inset-0 z-0">
+<div class="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/10 blur-[120px] rounded-full"></div>
+<div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-tertiary/10 blur-[120px] rounded-full"></div>
+</div>
+<div class="max-w-7xl mx-auto px-8 relative z-10 flex flex-col lg:flex-row items-center gap-16">
+<div class="flex-1 text-center lg:text-left">
+<h1 class="text-5xl md:text-7xl font-extrabold tracking-tighter leading-tight mb-6">
+                    Arrienda o encuentra <span class="text-gradient">estacionamiento</span> en segundos
+                </h1>
+<p class="text-xl text-on-surface-variant leading-relaxed mb-10 max-w-2xl mx-auto lg:mx-0">
+                    Convierte tu estacionamiento en ingresos o reserva un lugar seguro cerca de tu destino sin vueltas innecesarias.
+                </p>
+<div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+<button class="bg-gradient-to-r from-primary to-primary-container text-on-primary px-8 py-4 rounded-xl font-bold text-lg hover:shadow-[0_0_20px_rgba(180,197,255,0.3)] transition-all">
+                        Quiero estacionar
+                    </button>
+<button class="bg-surface-container-high text-on-surface px-8 py-4 rounded-xl font-bold text-lg hover:bg-surface-container-highest transition-all">
+                        Quiero arrendar mi espacio
+                    </button>
+</div>
+</div>
+<div class="flex-1 relative">
+<div class="relative w-full max-w-[400px] mx-auto group">
+<div class="absolute -inset-1 bg-gradient-to-r from-primary to-tertiary rounded-[3rem] blur opacity-20 group-hover:opacity-40 transition duration-1000"></div>
+<div class="relative bg-surface-container-lowest rounded-[2.5rem] border-[8px] border-surface-container-high p-4 overflow-hidden aspect-[9/19]">
+<img class="w-full h-full object-cover rounded-[1.5rem]" data-alt="UI of a mobile app showing a map of Santiago Chile with several glowing blue parking pins and prices displayed on a dark interface" data-location="Santiago, Chile" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDW-elwNYlXM7QFiiB-wmIkSzsDrZ5_ViU5hNVvFs0pj8bxi3T0_9VMFFTXZoJr3MNxb11iObIPJ5_AXSmjJy_Uw0TKkefghF2LasjYns34bMWbLYZEs4d1J1TSBh117SlsU178GmhEG2ATKusRoA7y__BhjEUvEpSWw-58ZITY1Lj-D8PmkNWL78Bt0yq13KHlFBe9150plJ6W8YwSmdw7uOfZqxJbKxdnAlBEUDt_A45qgfqbzQBfroVW2pL7oRt_RVEPyFOQcT56"/>
+<!-- Map Overlay Mockup -->
+<div class="absolute inset-0 bg-gradient-to-t from-surface/80 to-transparent flex flex-col justify-end p-6">
+<div class="bg-surface-container-highest p-4 rounded-xl space-y-3">
+<div class="flex justify-between items-center">
+<span class="text-xs font-bold uppercase tracking-widest text-primary">Cerca de ti</span>
+<span class="text-xs text-tertiary font-bold">Disponible</span>
+</div>
+<div class="h-2 bg-surface-container-low rounded-full w-full"></div>
+<div class="h-2 bg-surface-container-low rounded-full w-2/3"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</header>
+<!-- Insight Section -->
+<section class="py-24 bg-surface-container-low">
+<div class="max-w-4xl mx-auto px-8 text-center">
+<h2 class="text-3xl md:text-5xl font-bold mb-8 tracking-tight">Encontrar estacionamiento no debería ser difícil</h2>
+<p class="text-xl text-on-surface-variant leading-relaxed">
+                Perder tiempo buscando dónde estacionar es frustrante. Mientras tanto, muchos estacionamientos privados están vacíos gran parte del día. Conectamos a personas que necesitan estacionar con quienes tienen espacio disponible.
+            </p>
+</div>
+</section>
+<!-- Bento Grid How it Works -->
+<section class="py-32 max-w-7xl mx-auto px-8">
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+<!-- Conductores -->
+<div class="bg-surface-container p-10 rounded-2xl relative overflow-hidden group" id="conductores">
+<div class="absolute top-0 right-0 p-8 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-9xl">directions_car</span>
+</div>
+<h3 class="text-3xl font-bold mb-10 text-primary">Para Conductores</h3>
+<div class="space-y-12">
+<div class="flex gap-6 items-start">
+<div class="bg-primary/20 text-primary w-12 h-12 rounded-full flex items-center justify-center font-black text-xl shrink-0">1</div>
+<div>
+<h4 class="text-xl font-bold mb-2">Busca</h4>
+<p class="text-on-surface-variant">Encuentra el lugar perfecto en el mapa filtrando por precio y cercanía.</p>
+</div>
+</div>
+<div class="flex gap-6 items-start">
+<div class="bg-primary/20 text-primary w-12 h-12 rounded-full flex items-center justify-center font-black text-xl shrink-0">2</div>
+<div>
+<h4 class="text-xl font-bold mb-2">Reserva</h4>
+<p class="text-on-surface-variant">Asegura tu lugar con un toque. Sin pagos en efectivo ni sorpresas.</p>
+</div>
+</div>
+<div class="flex gap-6 items-start">
+<div class="bg-primary/20 text-primary w-12 h-12 rounded-full flex items-center justify-center font-black text-xl shrink-0">3</div>
+<div>
+<h4 class="text-xl font-bold mb-2">Estaciona</h4>
+<p class="text-on-surface-variant">Llega, estaciona y sigue con tu día. La app gestiona el acceso.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Anfitriones -->
+<div class="bg-surface-container p-10 rounded-2xl relative overflow-hidden group" id="anfitriones">
+<div class="absolute top-0 right-0 p-8 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-9xl">meeting_room</span>
+</div>
+<h3 class="text-3xl font-bold mb-10 text-tertiary">Para Anfitriones</h3>
+<div class="space-y-12">
+<div class="flex gap-6 items-start">
+<div class="bg-tertiary/20 text-tertiary w-12 h-12 rounded-full flex items-center justify-center font-black text-xl shrink-0">1</div>
+<div>
+<h4 class="text-xl font-bold mb-2">Publica</h4>
+<p class="text-on-surface-variant">Sube fotos y detalles de tu espacio en menos de 5 minutos.</p>
+</div>
+</div>
+<div class="flex gap-6 items-start">
+<div class="bg-tertiary/20 text-tertiary w-12 h-12 rounded-full flex items-center justify-center font-black text-xl shrink-0">2</div>
+<div>
+<h4 class="text-xl font-bold mb-2">Define precio</h4>
+<p class="text-on-surface-variant">Tú decides cuánto cobrar y en qué horarios está disponible.</p>
+</div>
+</div>
+<div class="flex gap-6 items-start">
+<div class="bg-tertiary/20 text-tertiary w-12 h-12 rounded-full flex items-center justify-center font-black text-xl shrink-0">3</div>
+<div>
+<h4 class="text-xl font-bold mb-2">Recibe ingresos</h4>
+<p class="text-on-surface-variant">Gana dinero extra de forma automática. Pagos directos a tu cuenta.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Visual Mockups Section -->
+<section class="py-24 bg-surface-container-lowest">
+<div class="max-w-7xl mx-auto px-8">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-12 items-center">
+<div class="space-y-6">
+<img class="rounded-3xl shadow-2xl grayscale hover:grayscale-0 transition duration-700 aspect-[9/16] object-cover" data-alt="Smartphone mockup with a dark UI parking map interface showing premium locations in Santiago Chile" data-location="Santiago, Chile" src="https://lh3.googleusercontent.com/aida-public/AB6AXuByGbvUeNuN-bpGfcNXOtld_MgZjz43WVOr4OlIMBSNKFq_Jyqd_XvVrkp9tLDpG0iRVDnmmgk2cLF-WNaCY9-P7yHCTbnE_A7nbvNKQRmopl9L26v4M6u1F8xb00IzNzxF4DeUsC8zor-xAqhZvBL2NdmkN_-5xVt9Y1og0qsODxpNKM0qZXAjFatrlimyQtUji8_KliBidMPMjDz-41gBw-rj_UVbQEtCrecCKuS1tff_GeIxjsAjc_HK1N02VYnvXGxYmZxx3tLF"/>
+<p class="text-center font-bold text-primary">Mapa Interactivo</p>
+</div>
+<div class="space-y-6 -mt-12">
+<img class="rounded-3xl shadow-2xl border-4 border-primary/20 aspect-[9/16] object-cover" data-alt="Smartphone mockup showing reservation details screen with a large confirm button and digital receipt in a dark theme" data-location="Santiago, Chile" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAUj1qVJJsV0nYvbZsU4KZLjOawo__b--GCPfTMWqlP5AlQpRjbBWrdNwSILHIuDwTXYMSye4ok5lc7SK9-qxYFJ2u9H2u2zD4YARRo9UlM2dNxbqnGPdES-LosYor1swKkQC7BJWH5vDjVBlLLl0-zSPsyZBJJGR6ZZNnbG6SC3-AoRNOD9Nrj9OBhj_cDW2V2stMZkHzIBnX6RmuIOEJvFTcV4qTuecKfAKQWrdPIV13iwNpX5_EbWFMHildWV9Ai36noC2BKxw1j"/>
+<p class="text-center font-bold text-tertiary">Detalle de Reserva</p>
+</div>
+<div class="space-y-6">
+<img class="rounded-3xl shadow-2xl grayscale hover:grayscale-0 transition duration-700 aspect-[9/16] object-cover" data-alt="Smartphone mockup showing a dashboard for parking owners to create a new listing with photo upload in dark mode" data-location="Santiago, Chile" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAA7jge7HTasPB7bEXJwr_XDCIM8g9nvfOrCv6w-X4V9_FmXZAxNr0v5Y7BUZEvSLgLOefKYXlqIGBy5BdhJfJv2P8c7l9aduHZqMp2wMNKzQ04Df7L4haVhrOCwqX6N9RQ15b1eG6vIp4qEYjXJahv3wgCRCujwrtpJcSItOSxwAC0__V9DmNMoKtIUEZVrNbbBHaKxfzkKouVTgx4V60Hf-6KNsTwJIXhjAk86SoPTSt5cEEC1WJ-HfXVE0ZNLss4JI04ne9JnGgw"/>
+<p class="text-center font-bold text-primary">Gestión de Espacio</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Trust Factors -->
+<section class="py-24 max-w-7xl mx-auto px-8">
+<div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+<div class="text-center p-6 bg-surface-container rounded-xl">
+<span class="material-symbols-outlined text-primary text-4xl mb-4" style="font-variation-settings: 'FILL' 1;">verified_user</span>
+<h5 class="font-bold mb-2">Verificado</h5>
+<p class="text-xs text-on-surface-variant">Perfiles y espacios validados.</p>
+</div>
+<div class="text-center p-6 bg-surface-container rounded-xl">
+<span class="material-symbols-outlined text-primary text-4xl mb-4" style="font-variation-settings: 'FILL' 1;">payments</span>
+<h5 class="font-bold mb-2">Pagos Seguros</h5>
+<p class="text-xs text-on-surface-variant">Transacciones encriptadas.</p>
+</div>
+<div class="text-center p-6 bg-surface-container rounded-xl">
+<span class="material-symbols-outlined text-primary text-4xl mb-4" style="font-variation-settings: 'FILL' 1;">history</span>
+<h5 class="font-bold mb-2">Historial</h5>
+<p class="text-xs text-on-surface-variant">Control total de tus movimientos.</p>
+</div>
+<div class="text-center p-6 bg-surface-container rounded-xl">
+<span class="material-symbols-outlined text-primary text-4xl mb-4" style="font-variation-settings: 'FILL' 1;">support_agent</span>
+<h5 class="font-bold mb-2">Soporte 24/7</h5>
+<p class="text-xs text-on-surface-variant">Estamos aquí para ayudarte.</p>
+</div>
+</div>
+</section>
+<!-- Waitlist Form Section -->
+<section class="py-32">
+<div class="max-w-3xl mx-auto px-8 bg-surface-container-high rounded-[2rem] p-12 relative overflow-hidden shadow-2xl">
+<div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary via-tertiary to-primary"></div>
+<div class="text-center mb-12">
+<h2 class="text-4xl font-bold mb-4">Sé parte del lanzamiento</h2>
+<p class="text-on-surface-variant">Déjanos tu correo y sé de los primeros en usar la app con beneficios exclusivos.</p>
+</div>
+<form class="space-y-6">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="space-y-2">
+<label class="text-xs font-bold uppercase tracking-widest text-on-surface-variant">Nombre completo</label>
+<input class="w-full bg-surface-container-lowest border-outline-variant/15 border rounded-xl py-3 px-4 focus:border-primary focus:ring-1 focus:ring-primary outline-none text-on-surface transition-all" placeholder="Ej: Juan Pérez" type="text"/>
+</div>
+<div class="space-y-2">
+<label class="text-xs font-bold uppercase tracking-widest text-on-surface-variant">Email</label>
+<input class="w-full bg-surface-container-lowest border-outline-variant/15 border rounded-xl py-3 px-4 focus:border-primary focus:ring-1 focus:ring-primary outline-none text-on-surface transition-all" placeholder="hola@ejemplo.com" type="email"/>
+</div>
+</div>
+<div class="space-y-4">
+<label class="text-xs font-bold uppercase tracking-widest text-on-surface-variant block">¿Cómo usarás Estaciona?</label>
+<div class="flex flex-wrap gap-4">
+<label class="flex items-center gap-3 cursor-pointer bg-surface-container p-3 px-5 rounded-xl border border-outline-variant/10 hover:border-primary/50 transition-colors">
+<input class="text-primary focus:ring-primary bg-surface-container-lowest border-outline-variant" name="use" type="radio"/>
+<span>Anfitrión</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer bg-surface-container p-3 px-5 rounded-xl border border-outline-variant/10 hover:border-primary/50 transition-colors">
+<input class="text-primary focus:ring-primary bg-surface-container-lowest border-outline-variant" name="use" type="radio"/>
+<span>Estacionar</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer bg-surface-container p-3 px-5 rounded-xl border border-outline-variant/10 hover:border-primary/50 transition-colors">
+<input class="text-primary focus:ring-primary bg-surface-container-lowest border-outline-variant" name="use" type="radio"/>
+<span>Ambos</span>
+</label>
+</div>
+</div>
+<button class="w-full py-5 bg-gradient-to-r from-primary to-primary-container text-on-primary font-bold text-lg rounded-xl shadow-lg hover:brightness-110 active:scale-[0.98] transition-all">
+                    Unirme a la lista de espera
+                </button>
+</form>
+</div>
+</section>
+<!-- Final CTA -->
+<section class="py-32 relative text-center">
+<div class="absolute inset-0 bg-primary/5 -z-10 skew-y-3"></div>
+<div class="max-w-4xl mx-auto px-8">
+<h2 class="text-4xl md:text-6xl font-black mb-8 leading-tight">Empieza a aprovechar mejor cada espacio disponible</h2>
+<button class="bg-on-surface text-surface px-10 py-5 rounded-full font-black text-xl hover:bg-primary transition-colors inline-flex items-center gap-3">
+                Comenzar ahora
+                <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
+</section>
+<!-- Footer -->
+<footer class="bg-[#070e1c] pt-20 pb-10">
+<div class="max-w-7xl mx-auto px-8 grid grid-cols-1 md:grid-cols-3 gap-12">
+<div class="space-y-6">
+<div class="text-xl font-bold text-[#b4c5ff]">Estaciona</div>
+<p class="font-['Inter'] text-sm leading-relaxed text-slate-500 max-w-xs">
+                    Redefiniendo el estacionamiento urbano a través de la economía colaborativa.
+                </p>
+<div class="flex gap-4">
+<a class="text-slate-500 hover:text-[#4ae176] transition-colors" href="#"><span class="material-symbols-outlined">public</span></a>
+<a class="text-slate-500 hover:text-[#4ae176] transition-colors" href="#"><span class="material-symbols-outlined">smartphone</span></a>
+<a class="text-slate-500 hover:text-[#4ae176] transition-colors" href="#"><span class="material-symbols-outlined">share</span></a>
+</div>
+</div>
+<div class="space-y-6">
+<h6 class="font-bold text-on-surface text-sm uppercase tracking-widest">Legal &amp; Soporte</h6>
+<ul class="space-y-3 font-['Inter'] text-sm leading-relaxed text-slate-500">
+<li><a class="hover:text-[#4ae176] transition-colors" href="#">Privacidad</a></li>
+<li><a class="hover:text-[#4ae176] transition-colors" href="#">Términos</a></li>
+<li><a class="hover:text-[#4ae176] transition-colors" href="#">Soporte</a></li>
+</ul>
+</div>
+<div class="space-y-6">
+<h6 class="font-bold text-on-surface text-sm uppercase tracking-widest">Contacto</h6>
+<div class="font-['Inter'] text-sm leading-relaxed text-slate-500 space-y-2">
+<p class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-lg">mail</span> contacto@estaciona.cl</p>
+<p class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-lg">location_on</span> Santiago, Chile.</p>
+</div>
+</div>
+</div>
+<div class="max-w-7xl mx-auto px-8 mt-20 pt-8 border-t border-outline-variant/10 text-center">
+<p class="font-['Inter'] text-sm leading-relaxed text-slate-500">© 2024 Estaciona. Santiago, Chile. Todos los derechos reservados.</p>
+</div>
+</footer>
+</body></html>
