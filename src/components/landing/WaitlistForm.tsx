@@ -131,7 +131,7 @@ export function WaitlistForm() {
             </fieldset>
             <button
               type="submit"
-              className="gradient-btn w-full rounded-xl px-6 py-4 text-lg font-bold transition hover:brightness-110"
+              className="gradient-btn w-full rounded-xl px-6 py-4 text-lg font-bold transition hover:cursor-pointer hover:brightness-110"
             >
               Unirme a la lista de espera
             </button>
