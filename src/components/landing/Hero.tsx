@@ -80,8 +80,11 @@ export function Hero() {
                 <span className="text-[var(--primary)]">Conductores 65%</span>
                 <span className="text-[var(--tertiary)]">Anfitriones 35%</span>
               </div>
-              <div className="h-2 overflow-hidden rounded-full bg-white/50">
-                <div className="h-full w-[65%] bg-gradient-to-r from-[var(--primary)] to-[var(--tertiary)]" />
+              <div className="h-2 overflow-hidden rounded-full bg-white/20">
+                <div className="flex h-full w-full">
+                  <div className="h-full w-[65%] bg-[#8b7dff]" />
+                  <div className="h-full w-[35%] bg-[var(--tertiary)]" />
+                </div>
               </div>
             </div>
           </div>

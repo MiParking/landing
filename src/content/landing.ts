@@ -1,9 +1,23 @@
 export const navLinks = [
   { href: "#inicio", label: "Inicio" },
   { href: "#como-funciona", label: "Como funciona" },
+  { href: "#pagos", label: "Pagos" },
   { href: "#casos-de-uso", label: "Casos de uso" },
   { href: "#confianza", label: "Seguridad" },
 ];
+
+export const paymentBreakdown = {
+  reservationAmount: "$10.000",
+  commissionLabel: "Comision MiParking (15%)",
+  commissionAmount: "$1.500",
+  hostPayoutAmount: "$8.500",
+  note: "Siempre mostramos el detalle final antes de confirmar la reserva.",
+};
+
+export const weeklyPayout = {
+  title: "Pagos semanales",
+  description: "Los arriendos se consolidan de lunes a domingo y el pago se realiza siempre los lunes.",
+};
 
 export const useCases = [
   {
