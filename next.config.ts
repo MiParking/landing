@@ -22,6 +22,10 @@ const nextConfig: NextConfig = {
       {
         protocol: "https",
         hostname: "www.clinicabupasantiago.cl",
+      },
+      {
+        protocol: "https",
+        hostname: "assets.miparking.cl",
       }
     ],
   },

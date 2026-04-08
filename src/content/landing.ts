@@ -115,15 +115,15 @@ export const hostSteps = [
 
 export const showcaseImages = [
   {
-    src: "/mapa-interactivo.png",
+    src: "https://assets.miparking.cl/landing/mapa-interactivo.png",
     label: "Mapa Interactivo",
   },
   {
-    src: "/detalle-de-reserva.png",
+    src: "https://assets.miparking.cl/landing/detalle-de-reserva.png",
     label: "Detalle de Reserva",
   },
   {
-    src: "/gestion-de-espacio.png",
+    src: "https://assets.miparking.cl/landing/gestion-de-espacio.png",
     label: "Gestion de Espacio",
   },
 ];

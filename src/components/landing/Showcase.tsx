@@ -17,6 +17,7 @@ export function Showcase() {
                 alt={item.label}
                 width={900}
                 height={1600}
+                unoptimized
                 className="phone-screen h-auto w-full object-cover"
               />
             </div>
