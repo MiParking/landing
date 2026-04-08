@@ -9,15 +9,28 @@ function StepColumn({
   id,
   title,
   accent,
+  icon,
   steps,
 }: {
   id: string;
   title: string;
   accent: string;
+  icon: string;
   steps: Step[];
 }) {
   return (
-    <article id={id} className="rounded-3xl bg-[var(--surface-container)] p-8 md:p-10">
+    <article id={id} className="relative overflow-hidden rounded-3xl bg-[var(--surface-container)] p-8 md:p-10">
+      <div className="pointer-events-none absolute top-3 right-3 opacity-45" aria-hidden="true">
+        <span
+          className="material-symbols-outlined leading-none"
+          style={{
+            color: "var(--outline-variant)",
+            fontSize: "clamp(4.75rem, 8vw, 6.5rem)",
+          }}
+        >
+          {icon}
+        </span>
+      </div>
       <h3 className="mb-8 text-3xl font-bold" style={{ color: accent }}>
         {title}
       </h3>
@@ -45,8 +58,20 @@ export function HowItWorks() {
   return (
     <section id="como-funciona" className="section-wrap py-24">
       <div className="grid gap-8 lg:grid-cols-2">
-        <StepColumn id="conductores" title="Para Conductores" accent="var(--primary)" steps={driverSteps} />
-        <StepColumn id="anfitriones" title="Para Anfitriones" accent="var(--tertiary)" steps={hostSteps} />
+        <StepColumn
+          id="conductores"
+          title="Para Conductores"
+          accent="var(--primary)"
+          icon="directions_car"
+          steps={driverSteps}
+        />
+        <StepColumn
+          id="anfitriones"
+          title="Para Anfitriones"
+          accent="var(--tertiary)"
+          icon="home"
+          steps={hostSteps}
+        />
       </div>
 
       <article id="pagos" className="mt-10 rounded-3xl bg-[var(--surface-container)] p-8 md:p-10">
