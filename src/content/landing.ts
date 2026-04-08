@@ -117,14 +117,20 @@ export const showcaseImages = [
   {
     src: "https://assets.miparking.cl/landing/mapa-interactivo.png",
     label: "Mapa Interactivo",
+    width: 706,
+    height: 1600,
   },
   {
     src: "https://assets.miparking.cl/landing/detalle-de-reserva.png",
     label: "Detalle de Reserva",
+    width: 706,
+    height: 1600,
   },
   {
     src: "https://assets.miparking.cl/landing/gestion-de-espacio.png",
     label: "Gestion de Espacio",
+    width: 670,
+    height: 1600,
   },
 ];
 

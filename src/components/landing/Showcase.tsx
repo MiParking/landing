@@ -10,15 +10,15 @@ export function Showcase() {
             key={item.label}
             className={`space-y-4 ${index === 1 ? "md:-translate-y-6" : ""}`}
           >
-            <div className="phone-frame ambient-shadow">
+            <div className="phone-frame ambient-shadow mx-auto w-fit">
               <span className="phone-camera" aria-hidden="true" />
               <Image
                 src={item.src}
                 alt={item.label}
-                width={900}
-                height={1600}
+                width={item.width}
+                height={item.height}
                 unoptimized
-                className="phone-screen h-auto w-full object-cover"
+                className="phone-screen h-auto w-auto max-h-[26rem] md:max-h-[34rem]"
               />
             </div>
             <figcaption
