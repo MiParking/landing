@@ -115,15 +115,15 @@ export const hostSteps = [
 
 export const showcaseImages = [
   {
-    src: "https://lh3.googleusercontent.com/aida-public/AB6AXuByGbvUeNuN-bpGfcNXOtld_MgZjz43WVOr4OlIMBSNKFq_Jyqd_XvVrkp9tLDpG0iRVDnmmgk2cLF-WNaCY9-P7yHCTbnE_A7nbvNKQRmopl9L26v4M6u1F8xb00IzNzxF4DeUsC8zor-xAqhZvBL2NdmkN_-5xVt9Y1og0qsODxpNKM0qZXAjFatrlimyQtUji8_KliBidMPMjDz-41gBw-rj_UVbQEtCrecCKuS1tff_GeIxjsAjc_HK1N02VYnvXGxYmZxx3tLF",
+    src: "/mapa-interactivo.png",
     label: "Mapa Interactivo",
   },
   {
-    src: "https://lh3.googleusercontent.com/aida-public/AB6AXuAUj1qVJJsV0nYvbZsU4KZLjOawo__b--GCPfTMWqlP5AlQpRjbBWrdNwSILHIuDwTXYMSye4ok5lc7SK9-qxYFJ2u9H2u2zD4YARRo9UlM2dNxbqnGPdES-LosYor1swKkQC7BJWH5vDjVBlLLl0-zSPsyZBJJGR6ZZNnbG6SC3-AoRNOD9Nrj9OBhj_cDW2V2stMZkHzIBnX6RmuIOEJvFTcV4qTuecKfAKQWrdPIV13iwNpX5_EbWFMHildWV9Ai36noC2BKxw1j",
+    src: "/detalle-de-reserva.png",
     label: "Detalle de Reserva",
   },
   {
-    src: "https://lh3.googleusercontent.com/aida-public/AB6AXuAA7jge7HTasPB7bEXJwr_XDCIM8g9nvfOrCv6w-X4V9_FmXZAxNr0v5Y7BUZEvSLgLOefKYXlqIGBy5BdhJfJv2P8c7l9aduHZqMp2wMNKzQ04Df7L4haVhrOCwqX6N9RQ15b1eG6vIp4qEYjXJahv3wgCRCujwrtpJcSItOSxwAC0__V9DmNMoKtIUEZVrNbbBHaKxfzkKouVTgx4V60Hf-6KNsTwJIXhjAk86SoPTSt5cEEC1WJ-HfXVE0ZNLss4JI04ne9JnGgw",
+    src: "/gestion-de-espacio.png",
     label: "Gestion de Espacio",
   },
 ];
