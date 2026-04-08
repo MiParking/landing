@@ -18,7 +18,7 @@ export function Showcase() {
                 width={item.width}
                 height={item.height}
                 unoptimized
-                className="phone-screen h-auto w-auto max-h-[26rem] md:max-h-[34rem]"
+                className="phone-screen h-auto w-auto max-h-[36rem] md:max-h-[42rem]"
               />
             </div>
             <figcaption
