@@ -1,10 +1,13 @@
-const interestStats = [
-  { label: "Total interesados", value: "1,248", tone: "total" },
-  { label: "Conductores", value: "812", tone: "driver" },
-  { label: "Anfitriones", value: "436", tone: "tertiary" },
-];
+import Link from "next/link";
 
-export function Hero() {
+import { HeroRealtimeStats } from "@/components/landing/HeroRealtimeStats";
+import type { WaitlistStats } from "@/lib/waitlist";
+
+type HeroProps = {
+  stats: WaitlistStats;
+};
+
+export function Hero({ stats }: HeroProps) {
   return (
     <header id="inicio" className="relative overflow-hidden pt-32 pb-20 md:pt-44 md:pb-28">
       <div
@@ -29,66 +32,22 @@ export function Hero() {
             vueltas innecesarias.
           </p>
           <div className="flex flex-col justify-center gap-4 sm:flex-row lg:justify-start">
-            <a
-              href="#waitlist"
+            <Link
+              href={{ pathname: "/", query: { source: "hero_driver" }, hash: "waitlist" }}
               className="gradient-btn rounded-xl px-8 py-4 text-lg font-bold transition hover:shadow-[0_0_22px_rgba(180,197,255,0.28)]"
             >
               Quiero estacionar
-            </a>
-            <a
-              href="#waitlist"
+            </Link>
+            <Link
+              href={{ pathname: "/", query: { source: "hero_host" }, hash: "waitlist" }}
               className="rounded-xl bg-[var(--surface-high)] px-8 py-4 text-lg font-bold transition hover:bg-[var(--surface-highest)]"
             >
               Quiero arrendar mi espacio
-            </a>
+            </Link>
           </div>
         </div>
 
-        <div className="relative mx-auto w-full max-w-md">
-          <div className="ambient-shadow relative rounded-[2rem] bg-[rgba(9,18,34,0.22)] p-6 backdrop-blur-xl md:p-7">
-            <div className="mb-6 flex items-center justify-between">
-              <p className="text-base leading-tight font-extrabold uppercase tracking-[0.08em] text-white md:text-lg">
-                Interesados hasta hoy
-              </p>
-              <span className="rounded-full bg-white/12 px-3 py-1 text-[11px] font-semibold text-white">
-                En tiempo real
-              </span>
-            </div>
-            <div className="grid gap-3 sm:grid-cols-3 sm:gap-2">
-              {interestStats.map((stat) => (
-                <div
-                  key={stat.label}
-                  className="rounded-2xl bg-white/8 p-4 text-center backdrop-blur-sm sm:text-left"
-                >
-                  <p
-                    className={`text-3xl font-extrabold tracking-tight ${
-                      stat.tone === "driver"
-                        ? "text-[#8b7dff]"
-                        : stat.tone === "tertiary"
-                          ? "text-[var(--tertiary)]"
-                          : "text-white"
-                    }`}
-                  >
-                    {stat.value}
-                  </p>
-                  <p className="mt-1 text-sm text-white/80">{stat.label}</p>
-                </div>
-              ))}
-            </div>
-            <div className="mt-6 rounded-xl bg-white/8 p-4 backdrop-blur-sm">
-              <div className="mb-2 flex items-center justify-between text-xs font-bold uppercase tracking-[0.08em]">
-                <span className="text-[var(--primary)]">Conductores 65%</span>
-                <span className="text-[var(--tertiary)]">Anfitriones 35%</span>
-              </div>
-              <div className="h-2 overflow-hidden rounded-full bg-white/20">
-                <div className="flex h-full w-full">
-                  <div className="h-full w-[65%] bg-[#8b7dff]" />
-                  <div className="h-full w-[35%] bg-[var(--tertiary)]" />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <HeroRealtimeStats initialStats={stats} />
       </div>
     </header>
   );

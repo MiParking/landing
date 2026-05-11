@@ -1,0 +1,90 @@
+"use server";
+
+import { createClient } from "@/lib/supabase/server";
+
+type WaitlistRole = "host" | "driver" | "both";
+
+export type WaitlistActionState = {
+  status: "idle" | "success" | "error";
+  message: string;
+};
+
+function parseRole(value: FormDataEntryValue | null): WaitlistRole | null {
+  if (value === "host" || value === "driver" || value === "both") {
+    return value;
+  }
+
+  return null;
+}
+
+export async function submitWaitlist(
+  _prevState: WaitlistActionState,
+  formData: FormData,
+): Promise<WaitlistActionState> {
+  const fullName = String(formData.get("fullName") ?? "").trim();
+  const email = String(formData.get("email") ?? "")
+    .trim()
+    .toLowerCase();
+  const role = parseRole(formData.get("role"));
+  const lastSource = String(formData.get("lastSource") ?? "").trim() || null;
+
+  if (!fullName) {
+    return { status: "error", message: "Ingresa tu nombre completo." };
+  }
+
+  if (!email || !email.includes("@")) {
+    return { status: "error", message: "Ingresa un email valido." };
+  }
+
+  if (!role) {
+    return { status: "error", message: "Selecciona como usaras MiParking." };
+  }
+
+  const supabase = await createClient();
+
+  const { data: existingRow, error: lookupError } = await supabase
+    .from("waitlist_entries")
+    .select("role")
+    .ilike("email", email)
+    .limit(1)
+    .maybeSingle();
+
+  if (lookupError) {
+    return { status: "error", message: "No pudimos validar tu registro. Intenta nuevamente." };
+  }
+
+  const { error: upsertError } = await supabase.from("waitlist_entries").upsert(
+    {
+      full_name: fullName,
+      email,
+      role,
+      last_source: lastSource,
+    },
+    {
+      onConflict: "email",
+    },
+  );
+
+  if (upsertError) {
+    return {
+      status: "error",
+      message: "No pudimos guardarte en la lista. Intenta nuevamente.",
+    };
+  }
+
+  if (!existingRow) {
+    return { status: "success", message: "Te uniste a la lista de espera." };
+  }
+
+  if (existingRow.role === role) {
+    return {
+      status: "success",
+      message: "Ya estabas registrado con ese perfil.",
+    };
+  }
+
+  return {
+    status: "success",
+    message: "Actualizamos tu perfil en la lista de espera.",
+  };
+}

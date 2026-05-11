@@ -1,3 +1,14 @@
+"use client";
+
+import { useActionState, useMemo, useState } from "react";
+
+import { submitWaitlist, type WaitlistActionState } from "@/app/actions/waitlist";
+
+const initialWaitlistState: WaitlistActionState = {
+  status: "idle",
+  message: "",
+};
+
 export function WaitlistForm() {
   const roleOptions = [
     {
@@ -20,6 +31,24 @@ export function WaitlistForm() {
     },
   ];
 
+  const [state, formAction, isPending] = useActionState(submitWaitlist, initialWaitlistState);
+  const [lastSource] = useState(() => {
+    if (typeof window === "undefined") {
+      return "waitlist_section_form";
+    }
+
+    const source = new URL(window.location.href).searchParams.get("source");
+    return source ? source.slice(0, 80) : "waitlist_section_form";
+  });
+
+  const feedbackStyle = useMemo(() => {
+    if (state.status === "error") {
+      return "border-red-300/40 bg-red-500/10 text-red-100";
+    }
+
+    return "border-emerald-300/40 bg-emerald-500/10 text-emerald-100";
+  }, [state.status]);
+
   return (
     <section id="waitlist" className="py-24">
       <div className="section-wrap">
@@ -33,7 +62,8 @@ export function WaitlistForm() {
               Dejanos tu correo y se de los primeros en usar la app con beneficios exclusivos.
             </p>
           </div>
-          <form className="mx-auto max-w-2xl space-y-6">
+          <form action={formAction} className="mx-auto max-w-2xl space-y-6">
+            <input type="hidden" name="lastSource" value={lastSource} />
             <div className="grid gap-5 md:grid-cols-2">
               <label className="space-y-2">
                 <span className="text-xs font-semibold uppercase tracking-[0.08em] text-[var(--on-surface-variant)]">
@@ -41,7 +71,9 @@ export function WaitlistForm() {
                 </span>
                 <input
                   type="text"
+                  name="fullName"
                   placeholder="Ej: Juan Perez"
+                  required
                   className="soft-outline w-full rounded-xl bg-[var(--surface-lowest)] px-4 py-3 outline-none transition focus:border-[var(--primary)]"
                 />
               </label>
@@ -51,7 +83,9 @@ export function WaitlistForm() {
                 </span>
                 <input
                   type="email"
+                  name="email"
                   placeholder="hola@ejemplo.com"
+                  required
                   className="soft-outline w-full rounded-xl bg-[var(--surface-lowest)] px-4 py-3 outline-none transition focus:border-[var(--primary)]"
                 />
               </label>
@@ -67,6 +101,7 @@ export function WaitlistForm() {
                       type="radio"
                       name="role"
                       value={option.value}
+                      required
                       className="peer sr-only"
                     />
                     <div className="relative min-h-28 overflow-hidden rounded-2xl">
@@ -131,10 +166,14 @@ export function WaitlistForm() {
             </fieldset>
             <button
               type="submit"
+              disabled={isPending}
               className="gradient-btn w-full rounded-xl px-6 py-4 text-lg font-bold transition hover:cursor-pointer hover:brightness-110"
             >
-              Unirme a la lista de espera
+              {isPending ? "Guardando..." : "Unirme a la lista de espera"}
             </button>
+            {state.status !== "idle" ? (
+              <p className={`rounded-xl border px-4 py-3 text-sm ${feedbackStyle}`}>{state.message}</p>
+            ) : null}
           </form>
         </div>
       </div>
