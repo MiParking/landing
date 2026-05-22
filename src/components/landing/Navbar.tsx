@@ -57,8 +57,8 @@ export function Navbar() {
     <>
       <nav className="glass-nav fixed top-0 z-50 w-full shadow-[0_40px_40px_-20px_rgba(12,19,33,0.4)]">
         <div className="section-wrap flex items-center justify-between py-4">
-          <a href="#inicio" className="text-2xl font-extrabold tracking-tight text-[var(--primary)]">
-            MiParking
+          <a href="#inicio" aria-label="MiParking" className="inline-flex items-center">
+            <img src="/Logo-texto-dark.svg" alt="MiParking" className="h-12 w-auto" />
           </a>
           <div className="hidden items-center gap-8 md:flex">
             {navLinks.map((link) => (
