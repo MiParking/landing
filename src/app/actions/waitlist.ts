@@ -2,44 +2,37 @@
 
 import { createClient } from "@/lib/supabase/server";
 import { sendWaitlistConfirmation } from "@/lib/email/send-waitlist-confirmation";
-
-type WaitlistRole = "host" | "driver" | "both";
+import { waitlistSchema } from "@/lib/waitlist-validation";
 
 export type WaitlistActionState = {
   status: "idle" | "success" | "error";
   message: string;
 };
 
-function parseRole(value: FormDataEntryValue | null): WaitlistRole | null {
-  if (value === "host" || value === "driver" || value === "both") {
-    return value;
-  }
-
-  return null;
-}
-
 export async function submitWaitlist(
   _prevState: WaitlistActionState,
   formData: FormData,
 ): Promise<WaitlistActionState> {
-  const fullName = String(formData.get("fullName") ?? "").trim();
-  const email = String(formData.get("email") ?? "")
-    .trim()
-    .toLowerCase();
-  const role = parseRole(formData.get("role"));
-  const lastSource = String(formData.get("lastSource") ?? "").trim() || null;
+  const parsedInput = waitlistSchema.safeParse({
+    fullName: String(formData.get("fullName") ?? ""),
+    email: String(formData.get("email") ?? "").trim(),
+    role: formData.get("role"),
+    lastSource: String(formData.get("lastSource") ?? "").trim() || null,
+  });
 
-  if (!fullName) {
-    return { status: "error", message: "Ingresa tu nombre completo." };
+  if (!parsedInput.success) {
+    const roleError = parsedInput.error.issues.find((issue) => issue.path[0] === "role");
+    if (roleError) {
+      return { status: "error", message: "Selecciona como usaras MiParking." };
+    }
+
+    return {
+      status: "error",
+      message: parsedInput.error.issues[0]?.message ?? "Revisa los datos ingresados.",
+    };
   }
 
-  if (!email || !email.includes("@")) {
-    return { status: "error", message: "Ingresa un email valido." };
-  }
-
-  if (!role) {
-    return { status: "error", message: "Selecciona como usaras MiParking." };
-  }
+  const { fullName, email, role, lastSource } = parsedInput.data;
 
   const supabase = await createClient();
 

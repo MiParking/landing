@@ -1,12 +1,24 @@
 "use client";
 
+import type { FormEvent } from "react";
 import { useActionState, useMemo, useState } from "react";
 
 import { submitWaitlist, type WaitlistActionState } from "@/app/actions/waitlist";
+import {
+  WAITLIST_EMAIL_MAX,
+  WAITLIST_FULL_NAME_MAX,
+  waitlistSchema,
+} from "@/lib/waitlist-validation";
 
 const initialWaitlistState: WaitlistActionState = {
   status: "idle",
   message: "",
+};
+
+type WaitlistFieldErrors = {
+  fullName?: string;
+  email?: string;
+  role?: string;
 };
 
 export function WaitlistForm() {
@@ -32,6 +44,10 @@ export function WaitlistForm() {
   ];
 
   const [state, formAction, isPending] = useActionState(submitWaitlist, initialWaitlistState);
+  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
+  const [fieldErrors, setFieldErrors] = useState<WaitlistFieldErrors>({});
+  const [shakeNonce, setShakeNonce] = useState(0);
   const [lastSource] = useState(() => {
     if (typeof window === "undefined") {
       return "waitlist_section_form";
@@ -41,13 +57,46 @@ export function WaitlistForm() {
     return source ? source.slice(0, 80) : "waitlist_section_form";
   });
 
-  const feedbackStyle = useMemo(() => {
-    if (state.status === "error") {
-      return "border-red-300/40 bg-red-500/10 text-red-100";
-    }
+  const successFeedbackStyle = useMemo(
+    () => "border-emerald-300/40 bg-emerald-500/10 text-emerald-100",
+    [],
+  );
 
-    return "border-emerald-300/40 bg-emerald-500/10 text-emerald-100";
-  }, [state.status]);
+  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    setFieldErrors({});
+
+    const data = new FormData(event.currentTarget);
+    const parsedInput = waitlistSchema.safeParse({
+      fullName: String(data.get("fullName") ?? ""),
+      email: String(data.get("email") ?? "").trim(),
+      role: data.get("role"),
+      lastSource: String(data.get("lastSource") ?? "").trim() || null,
+    });
+
+    if (!parsedInput.success) {
+      event.preventDefault();
+      const nextFieldErrors: WaitlistFieldErrors = {};
+
+      for (const issue of parsedInput.error.issues) {
+        const field = issue.path[0];
+
+        if (field === "fullName" && !nextFieldErrors.fullName) {
+          nextFieldErrors.fullName = issue.message;
+        }
+
+        if (field === "email" && !nextFieldErrors.email) {
+          nextFieldErrors.email = issue.message;
+        }
+
+        if (field === "role" && !nextFieldErrors.role) {
+          nextFieldErrors.role = "Selecciona como usaras MiParking.";
+        }
+      }
+
+      setFieldErrors(nextFieldErrors);
+      setShakeNonce((value) => value + 1);
+    }
+  }
 
   return (
     <section id="waitlist" className="py-24">
@@ -62,48 +111,85 @@ export function WaitlistForm() {
               Dejanos tu correo y se de los primeros en usar la app con beneficios exclusivos.
             </p>
           </div>
-          <form action={formAction} className="mx-auto max-w-2xl space-y-6">
+          <form
+            action={formAction}
+            noValidate
+            onSubmit={handleSubmit}
+            className="mx-auto max-w-2xl space-y-6"
+          >
             <input type="hidden" name="lastSource" value={lastSource} />
             <div className="grid gap-5 md:grid-cols-2">
               <label className="space-y-2">
-                <span className="text-xs font-semibold uppercase tracking-[0.08em] text-[var(--on-surface-variant)]">
-                  Nombre completo
-                </span>
+                <div className="flex items-center justify-between gap-2">
+                  <span className="text-xs font-semibold uppercase tracking-[0.08em] text-[var(--on-surface-variant)]">
+                    Nombre completo
+                  </span>
+                  <span className="text-xs text-[var(--on-surface-variant)]">
+                    {fullName.length}/{WAITLIST_FULL_NAME_MAX}
+                  </span>
+                </div>
                 <input
+                  key={`fullName-${shakeNonce}-${fieldErrors.fullName ? "error" : "ok"}`}
                   type="text"
                   name="fullName"
                   placeholder="Ej: Juan Perez"
+                  maxLength={WAITLIST_FULL_NAME_MAX}
                   required
-                  className="soft-outline w-full rounded-xl bg-[var(--surface-lowest)] px-4 py-3 outline-none transition focus:border-[var(--primary)]"
+                  value={fullName}
+                  onChange={(event) => {
+                    setFullName(event.target.value);
+                    setFieldErrors((prev) => ({ ...prev, fullName: undefined }));
+                  }}
+                  className={`soft-outline w-full rounded-xl bg-[var(--surface-lowest)] px-4 py-3 outline-none transition focus:border-[var(--primary)] ${fieldErrors.fullName ? "field-error-border field-shake" : ""}`}
                 />
+                {fieldErrors.fullName ? <p className="text-xs text-red-200">{fieldErrors.fullName}</p> : null}
               </label>
               <label className="space-y-2">
-                <span className="text-xs font-semibold uppercase tracking-[0.08em] text-[var(--on-surface-variant)]">
-                  Email
-                </span>
+                <div className="flex items-center justify-between gap-2">
+                  <span className="text-xs font-semibold uppercase tracking-[0.08em] text-[var(--on-surface-variant)]">
+                    Email
+                  </span>
+                  <span className="text-xs text-[var(--on-surface-variant)]">
+                    {email.length}/{WAITLIST_EMAIL_MAX}
+                  </span>
+                </div>
                 <input
+                  key={`email-${shakeNonce}-${fieldErrors.email ? "error" : "ok"}`}
                   type="email"
                   name="email"
                   placeholder="hola@ejemplo.com"
+                  maxLength={WAITLIST_EMAIL_MAX}
                   required
-                  className="soft-outline w-full rounded-xl bg-[var(--surface-lowest)] px-4 py-3 outline-none transition focus:border-[var(--primary)]"
+                  value={email}
+                  onChange={(event) => {
+                    setEmail(event.target.value);
+                    setFieldErrors((prev) => ({ ...prev, email: undefined }));
+                  }}
+                  className={`soft-outline w-full rounded-xl bg-[var(--surface-lowest)] px-4 py-3 outline-none transition focus:border-[var(--primary)] ${fieldErrors.email ? "field-error-border field-shake" : ""}`}
                 />
+                {fieldErrors.email ? <p className="text-xs text-red-200">{fieldErrors.email}</p> : null}
               </label>
             </div>
-            <fieldset>
+            <fieldset
+              key={`role-${shakeNonce}-${fieldErrors.role ? "error" : "ok"}`}
+              className={fieldErrors.role ? "field-shake" : ""}
+            >
               <legend className="mb-3 text-xs font-semibold uppercase tracking-[0.08em] text-[var(--on-surface-variant)]">
                 Como usaras MiParking?
               </legend>
-              <div className="grid gap-3 md:grid-cols-3">
+              <div
+                className={`grid gap-3 rounded-2xl ${fieldErrors.role ? "field-error-border p-2" : ""} md:grid-cols-3`}
+              >
                 {roleOptions.map((option) => (
                   <label key={option.value} className="group relative cursor-pointer">
                     <input
                       type="radio"
                       name="role"
-                      value={option.value}
-                      required
-                      className="peer sr-only"
-                    />
+                       value={option.value}
+                       required
+                       onChange={() => setFieldErrors((prev) => ({ ...prev, role: undefined }))}
+                        className="peer sr-only"
+                      />
                     <div className="relative min-h-28 overflow-hidden rounded-2xl">
                       <svg
                         aria-hidden="true"
@@ -163,6 +249,7 @@ export function WaitlistForm() {
                   </label>
                 ))}
               </div>
+              {fieldErrors.role ? <p className="mt-2 text-xs text-red-200">{fieldErrors.role}</p> : null}
             </fieldset>
             <button
               type="submit"
@@ -171,8 +258,8 @@ export function WaitlistForm() {
             >
               {isPending ? "Guardando..." : "Unirme a la lista de espera"}
             </button>
-            {state.status !== "idle" ? (
-              <p className={`rounded-xl border px-4 py-3 text-sm ${feedbackStyle}`}>{state.message}</p>
+            {state.status === "success" ? (
+              <p className={`rounded-xl border px-4 py-3 text-sm ${successFeedbackStyle}`}>{state.message}</p>
             ) : null}
           </form>
         </div>

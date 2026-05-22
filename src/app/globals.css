@@ -145,6 +145,14 @@ a {
   border: 1px solid rgba(67, 70, 85, 0.15);
 }
 
+.field-error-border {
+  border: 1px solid rgba(252, 165, 165, 0.65);
+}
+
+.field-shake {
+  animation: field-shake 320ms ease-in-out;
+}
+
 .role-card-border {
   fill: none;
   stroke-width: 1.8;
@@ -165,6 +173,32 @@ a {
 
   to {
     stroke-dashoffset: -100;
+  }
+}
+
+@keyframes field-shake {
+  0% {
+    transform: translateX(0);
+  }
+
+  20% {
+    transform: translateX(-5px);
+  }
+
+  40% {
+    transform: translateX(5px);
+  }
+
+  60% {
+    transform: translateX(-3px);
+  }
+
+  80% {
+    transform: translateX(3px);
+  }
+
+  100% {
+    transform: translateX(0);
   }
 }
 
