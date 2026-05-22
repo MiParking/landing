@@ -1,6 +1,7 @@
 "use server";
 
 import { createClient } from "@/lib/supabase/server";
+import { sendWaitlistConfirmation } from "@/lib/email/send-waitlist-confirmation";
 
 type WaitlistRole = "host" | "driver" | "both";
 
@@ -73,6 +74,16 @@ export async function submitWaitlist(
   }
 
   if (!existingRow) {
+    try {
+      await sendWaitlistConfirmation({
+        fullName,
+        email,
+        role,
+      });
+    } catch (error) {
+      console.error("No se pudo enviar el correo de confirmacion de waitlist.", error);
+    }
+
     return { status: "success", message: "Te uniste a la lista de espera." };
   }
 

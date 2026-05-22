@@ -9,7 +9,13 @@ const publicEnvsSchema = z.object({
     .min(1, "NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY es requerida."),
 });
 
-const parsedPublicEnvs = publicEnvsSchema.safeParse(process.env);
+const publicEnvs = {
+  NEXT_PUBLIC_SUPABASE_URL: process.env.NEXT_PUBLIC_SUPABASE_URL,
+  NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY:
+    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY,
+};
+
+const parsedPublicEnvs = publicEnvsSchema.safeParse(publicEnvs);
 
 if (!parsedPublicEnvs.success) {
   throw new Error(
