@@ -57,10 +57,10 @@ export function Navbar() {
     <>
       <nav className="glass-nav fixed top-0 z-50 w-full shadow-[0_40px_40px_-20px_rgba(12,19,33,0.4)]">
         <div className="section-wrap flex items-center justify-between py-4">
-          <a href="#inicio" className="text-2xl font-extrabold tracking-tight text-[var(--primary)]">
-            MiParking
+          <a href="#inicio" aria-label="MiParking" className="inline-flex shrink-0 items-center md:mr-3 lg:mr-6">
+            <img src="/Logo-texto-dark.svg" alt="MiParking" className="h-12 w-auto" />
           </a>
-          <div className="hidden items-center gap-8 md:flex">
+          <div className="hidden items-center gap-8 md:mx-3 md:flex md:gap-5 lg:mx-6 lg:gap-8">
             {navLinks.map((link) => (
               <a
                 key={link.href}
@@ -73,7 +73,7 @@ export function Navbar() {
           </div>
           <a
             href="#waitlist"
-            className="gradient-btn hidden rounded-xl px-5 py-2.5 text-sm font-bold transition hover:brightness-110 md:inline-flex"
+            className="gradient-btn hidden shrink-0 rounded-xl px-5 py-2.5 text-sm font-bold transition hover:brightness-110 md:ml-3 md:inline-flex md:px-4 lg:ml-6 lg:px-5"
           >
             Unirse a la espera
           </a>

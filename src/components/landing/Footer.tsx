@@ -5,7 +5,7 @@ export function Footer() {
     <footer className="bg-[var(--surface-lowest)] pt-16 pb-10">
       <div className="section-wrap grid gap-10 md:grid-cols-3">
         <div>
-          <p className="text-xl font-bold text-[var(--primary)]">MiParking</p>
+          <img src="/Logo-texto-dark.svg" alt="MiParking" className="h-12 w-auto" />
           <p className="mt-4 max-w-xs text-sm leading-relaxed text-[var(--on-surface-variant)]">
             Redefiniendo el estacionamiento urbano a traves de la economia colaborativa.
           </p>
