@@ -108,9 +108,10 @@ export function HowItWorks() {
 
           <div className="rounded-2xl bg-[var(--surface-high)] p-5 text-center md:text-left">
             <p className="text-xs font-semibold uppercase tracking-[0.08em] text-[var(--on-surface-variant)]">
-              Recibe el anfitrion
+              Recibe el anfitrion*
             </p>
             <p className="mt-2 text-3xl font-black text-[var(--tertiary)]">{paymentBreakdown.hostPayoutAmount}</p>
+            <p className="mt-1 text-xs text-[var(--on-surface-variant)]">*Se aplicara una tarifa de transferencia</p>
           </div>
         </div>
 
