@@ -7,12 +7,17 @@ const publicEnvsSchema = z.object({
     .string()
     .trim()
     .min(1, "NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY es requerida."),
+  NEXT_PUBLIC_TURNSTILE_SITE_KEY: z
+    .string()
+    .trim()
+    .min(1, "NEXT_PUBLIC_TURNSTILE_SITE_KEY es requerida."),
 });
 
 const publicEnvs = {
   NEXT_PUBLIC_SUPABASE_URL: process.env.NEXT_PUBLIC_SUPABASE_URL,
   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY:
     process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY,
+  NEXT_PUBLIC_TURNSTILE_SITE_KEY: process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY,
 };
 
 const parsedPublicEnvs = publicEnvsSchema.safeParse(publicEnvs);

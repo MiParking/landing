@@ -1,7 +1,10 @@
 "use server";
 
+import { headers } from "next/headers";
+
 import { createClient } from "@/lib/supabase/server";
 import { sendWaitlistConfirmation } from "@/lib/email/send-waitlist-confirmation";
+import { verifyTurnstileToken } from "@/lib/turnstile";
 import { waitlistSchema } from "@/lib/waitlist-validation";
 
 export type WaitlistActionState = {
@@ -13,6 +16,26 @@ export async function submitWaitlist(
   _prevState: WaitlistActionState,
   formData: FormData,
 ): Promise<WaitlistActionState> {
+  const turnstileToken = String(formData.get("cf-turnstile-response") ?? "").trim();
+
+  if (!turnstileToken) {
+    return {
+      status: "error",
+      message: "Completa la verificacion de seguridad.",
+    };
+  }
+
+  const requestHeaders = await headers();
+  const remoteIp = requestHeaders.get("x-forwarded-for")?.split(",")[0]?.trim();
+  const isTurnstileValid = await verifyTurnstileToken({ token: turnstileToken, remoteIp });
+
+  if (!isTurnstileValid) {
+    return {
+      status: "error",
+      message: "No pudimos validar el captcha. Intenta nuevamente.",
+    };
+  }
+
   const parsedInput = waitlistSchema.safeParse({
     fullName: String(formData.get("fullName") ?? ""),
     email: String(formData.get("email") ?? "").trim(),

@@ -1,7 +1,8 @@
 "use client";
 
 import type { FormEvent } from "react";
-import { useActionState, useMemo, useState } from "react";
+import { useActionState, useEffect, useMemo, useRef, useState } from "react";
+import Script from "next/script";
 
 import { submitWaitlist, type WaitlistActionState } from "@/app/actions/waitlist";
 import {
@@ -9,6 +10,7 @@ import {
   WAITLIST_FULL_NAME_MAX,
   waitlistSchema,
 } from "@/lib/waitlist-validation";
+import { envs } from "@/lib/envs";
 
 const initialWaitlistState: WaitlistActionState = {
   status: "idle",
@@ -19,7 +21,28 @@ type WaitlistFieldErrors = {
   fullName?: string;
   email?: string;
   role?: string;
+  captcha?: string;
 };
+
+type TurnstileInstance = {
+  render: (
+    container: string | HTMLElement,
+    options: {
+      sitekey: string;
+      theme?: "light" | "dark" | "auto";
+      callback?: (token: string) => void;
+      "expired-callback"?: () => void;
+      "error-callback"?: () => void;
+    },
+  ) => string;
+  reset: (widgetId?: string) => void;
+};
+
+declare global {
+  interface Window {
+    turnstile?: TurnstileInstance;
+  }
+}
 
 export function WaitlistForm() {
   const roleOptions = [
@@ -48,6 +71,10 @@ export function WaitlistForm() {
   const [email, setEmail] = useState("");
   const [fieldErrors, setFieldErrors] = useState<WaitlistFieldErrors>({});
   const [shakeNonce, setShakeNonce] = useState(0);
+  const [turnstileToken, setTurnstileToken] = useState("");
+  const [turnstileReady, setTurnstileReady] = useState(false);
+  const turnstileContainerRef = useRef<HTMLDivElement | null>(null);
+  const turnstileWidgetIdRef = useRef<string | null>(null);
   const [lastSource] = useState(() => {
     if (typeof window === "undefined") {
       return "waitlist_section_form";
@@ -61,6 +88,29 @@ export function WaitlistForm() {
     () => "border-emerald-300/40 bg-emerald-500/10 text-emerald-100",
     [],
   );
+
+  useEffect(() => {
+    if (!turnstileReady || !turnstileContainerRef.current || !window.turnstile || turnstileWidgetIdRef.current) {
+      return;
+    }
+
+    turnstileWidgetIdRef.current = window.turnstile.render(turnstileContainerRef.current, {
+      sitekey: envs.NEXT_PUBLIC_TURNSTILE_SITE_KEY,
+      theme: "dark",
+      callback: (token) => {
+        setTurnstileToken(token);
+        setFieldErrors((prev) => ({ ...prev, captcha: undefined }));
+      },
+      "expired-callback": () => {
+        setTurnstileToken("");
+        setFieldErrors((prev) => ({ ...prev, captcha: "La verificacion expiro. Intenta nuevamente." }));
+      },
+      "error-callback": () => {
+        setTurnstileToken("");
+        setFieldErrors((prev) => ({ ...prev, captcha: "No pudimos validar el captcha. Intenta nuevamente." }));
+      },
+    });
+  }, [turnstileReady]);
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     setFieldErrors({});
@@ -95,6 +145,13 @@ export function WaitlistForm() {
 
       setFieldErrors(nextFieldErrors);
       setShakeNonce((value) => value + 1);
+      return;
+    }
+
+    if (!turnstileToken) {
+      event.preventDefault();
+      setFieldErrors((prev) => ({ ...prev, captcha: "Completa la verificacion de seguridad." }));
+      setShakeNonce((value) => value + 1);
     }
   }
 
@@ -118,6 +175,7 @@ export function WaitlistForm() {
             className="mx-auto max-w-2xl space-y-6"
           >
             <input type="hidden" name="lastSource" value={lastSource} />
+            <input type="hidden" name="cf-turnstile-response" value={turnstileToken} readOnly />
             <div className="grid gap-5 md:grid-cols-2">
               <label className="space-y-2">
                 <div className="flex items-center justify-between gap-2">
@@ -251,6 +309,19 @@ export function WaitlistForm() {
               </div>
               {fieldErrors.role ? <p className="mt-2 text-xs text-red-200">{fieldErrors.role}</p> : null}
             </fieldset>
+            <div
+              key={`captcha-${shakeNonce}-${fieldErrors.captcha ? "error" : "ok"}`}
+              className={`space-y-2 ${fieldErrors.captcha ? "field-shake" : ""}`}
+            >
+              <div className="flex justify-center">
+                <div
+                  className={`inline-flex rounded-xl bg-[var(--surface-lowest)] p-2 ${fieldErrors.captcha ? "field-error-border" : "soft-outline"}`}
+                >
+                  <div ref={turnstileContainerRef} className="flex items-center justify-center" />
+                </div>
+              </div>
+              {fieldErrors.captcha ? <p className="text-xs text-red-200">{fieldErrors.captcha}</p> : null}
+            </div>
             <button
               type="submit"
               disabled={isPending}
@@ -262,6 +333,11 @@ export function WaitlistForm() {
               <p className={`rounded-xl border px-4 py-3 text-sm ${successFeedbackStyle}`}>{state.message}</p>
             ) : null}
           </form>
+          <Script
+            src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit"
+            strategy="afterInteractive"
+            onLoad={() => setTurnstileReady(true)}
+          />
         </div>
       </div>
     </section>
