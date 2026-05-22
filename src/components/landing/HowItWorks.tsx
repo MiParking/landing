@@ -20,7 +20,7 @@ function StepColumn({
 }) {
   return (
     <article id={id} className="relative overflow-hidden rounded-3xl bg-[var(--surface-container)] p-8 md:p-10">
-      <div className="pointer-events-none absolute top-3 right-3 opacity-45" aria-hidden="true">
+      <div className="pointer-events-none absolute top-3 right-3 z-0 opacity-30 md:opacity-45" aria-hidden="true">
         <span
           className="material-symbols-outlined leading-none"
           style={{
@@ -31,24 +31,26 @@ function StepColumn({
           {icon}
         </span>
       </div>
-      <h3 className="mb-8 text-3xl font-bold" style={{ color: accent }}>
-        {title}
-      </h3>
-      <div className="space-y-8">
-        {steps.map((step, index) => (
-          <div key={step.title} className="flex items-start gap-5">
-            <div
-              className="mt-1 flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-lg font-black"
-              style={{ color: accent, background: `${accent}22` }}
-            >
-              {index + 1}
+      <div className="relative z-10">
+        <h3 className="mb-8 text-3xl font-bold" style={{ color: accent }}>
+          {title}
+        </h3>
+        <div className="space-y-8">
+          {steps.map((step, index) => (
+            <div key={step.title} className="flex items-start gap-5">
+              <div
+                className="mt-1 flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-lg font-black"
+                style={{ color: accent, background: `${accent}22` }}
+              >
+                {index + 1}
+              </div>
+              <div>
+                <h4 className="mb-1 text-xl font-bold text-white">{step.title}</h4>
+                <p className="text-[var(--on-surface-variant)]">{step.description}</p>
+              </div>
             </div>
-            <div>
-              <h4 className="mb-1 text-xl font-bold text-white">{step.title}</h4>
-              <p className="text-[var(--on-surface-variant)]">{step.description}</p>
-            </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </article>
   );
