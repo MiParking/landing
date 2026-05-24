@@ -12,6 +12,9 @@ export const metadata: Metadata = {
   title: "MiParking | Arrienda o encuentra estacionamiento",
   description:
     "Encuentra o arrienda estacionamientos privados de forma simple y segura.",
+  icons: {
+    icon: "https://assets.miparking.cl/landing/miparking-favicon.svg",
+  },
 };
 
 export default function RootLayout({
